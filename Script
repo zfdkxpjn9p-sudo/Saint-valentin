@@ -1,0 +1,86 @@
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+const question = document.getElementById("question-container");
+const result = document.getElementById("result");
+const sound = document.getElementById("sound");
+const funnyText = document.getElementById("funny-text");
+
+let yesScale = 1;
+let noScale = 1;
+let attempts = 0;
+
+// Place Oui et Non à deux endroits distincts au départ
+function placeInitialButtons() {
+  yesBtn.style.left = "20%";
+  yesBtn.style.top = "50%";
+
+  noBtn.style.left = "70%";
+  noBtn.style.top = "50%";
+}
+
+placeInitialButtons();
+
+// Fonction pour générer une position aléatoire pour NON, en évitant Oui
+function moveNo() {
+  attempts++;
+  sound.currentTime = 0;
+  sound.play();
+
+  // Rétrécit le NON progressivement
+  noScale = Math.max(0.3, noScale - 0.05);
+  noBtn.style.transform = `scale(${noScale})`;
+
+  // Générer position aléatoire
+  let x, y;
+  const yesRect = yesBtn.getBoundingClientRect();
+
+  do {
+    x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  } while (
+    x + noBtn.offsetWidth > yesRect.left &&
+    x < yesRect.right &&
+    y + noBtn.offsetHeight > yesRect.top &&
+    y < yesRect.bottom
+  );
+
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
+
+  // Affiche message drôle après 5 tentatives
+  if (attempts > 5) funnyText.classList.remove("hidden");
+
+  // Si trop de tentatives → Oui plein écran
+  if (attempts > 8) {
+    yesBtn.style.position = "fixed";
+    yesBtn.style.top = 0;
+    yesBtn.style.left = 0;
+    yesBtn.style.width = "100vw";
+    yesBtn.style.height = "100vh";
+    yesBtn.style.fontSize = "3em";
+    yesBtn.textContent = "OUI 💖💖💖";
+  }
+}
+
+// Bouger Non après 2 secondes et au survol / toucher
+setTimeout(() => {
+  noBtn.addEventListener("mouseenter", moveNo);
+  noBtn.addEventListener("touchstart", moveNo);
+}, 2000);
+
+// Clique sur Oui
+yesBtn.addEventListener("click", () => {
+  question.classList.add("hidden");
+  result.classList.remove("hidden");
+});
+
+// 💖 Génération automatique des cœurs
+setInterval(() => {
+  const heart = document.createElement("span");
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 10 + "px";
+  document.querySelector(".hearts").appendChild(heart);
+
+  setTimeout(() => heart.remove(), 6000);
+}, 300);
