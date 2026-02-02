@@ -9,30 +9,29 @@ let yesScale = 1;
 let noScale = 1;
 let attempts = 0;
 
-// Place Oui et Non à deux endroits distincts au départ
+// 1️⃣ Position initiale des boutons visibles
 function placeInitialButtons() {
   yesBtn.style.left = "20%";
   yesBtn.style.top = "50%";
-
   noBtn.style.left = "70%";
   noBtn.style.top = "50%";
 }
 
 placeInitialButtons();
 
-// Fonction pour générer une position aléatoire pour NON, en évitant Oui
+// 2️⃣ Fonction pour déplacer le NON aléatoirement en évitant OUI
 function moveNo() {
   attempts++;
   sound.currentTime = 0;
   sound.play();
 
-  // Rétrécit le NON progressivement
+  // Rétrécir le bouton NON
   noScale = Math.max(0.3, noScale - 0.05);
   noBtn.style.transform = `scale(${noScale})`;
 
-  // Générer position aléatoire
-  let x, y;
+  // Éviter que NON passe sur OUI
   const yesRect = yesBtn.getBoundingClientRect();
+  let x, y;
 
   do {
     x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
@@ -47,10 +46,10 @@ function moveNo() {
   noBtn.style.left = `${x}px`;
   noBtn.style.top = `${y}px`;
 
-  // Affiche message drôle après 5 tentatives
+  // Message drôle après 5 tentatives
   if (attempts > 5) funnyText.classList.remove("hidden");
 
-  // Si trop de tentatives → Oui plein écran
+  // OUI plein écran après 8 tentatives
   if (attempts > 8) {
     yesBtn.style.position = "fixed";
     yesBtn.style.top = 0;
@@ -62,19 +61,19 @@ function moveNo() {
   }
 }
 
-// Bouger Non après 2 secondes et au survol / toucher
+// 3️⃣ Commence à bouger le NON après 2 secondes
 setTimeout(() => {
   noBtn.addEventListener("mouseenter", moveNo);
   noBtn.addEventListener("touchstart", moveNo);
 }, 2000);
 
-// Clique sur Oui
+// 4️⃣ Clique sur OUI → montre l'image finale
 yesBtn.addEventListener("click", () => {
   question.classList.add("hidden");
   result.classList.remove("hidden");
 });
 
-// 💖 Génération automatique des cœurs
+// 5️⃣ Génération des cœurs animés
 setInterval(() => {
   const heart = document.createElement("span");
   heart.innerHTML = "❤️";
