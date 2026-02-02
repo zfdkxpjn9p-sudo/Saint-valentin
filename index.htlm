@@ -22,8 +22,7 @@
 </div>
 
 <div id="result" class="hidden">
-  <h1>Merci de me rendre heureux chaque jour Chloé ❤️</h1>
-  <img src="image.jpg" alt="Amour">
+  <img src="image.jpg" alt="Image finale">
 </div>
 
 <audio id="sound" src="sound.mp3"></audio>
