@@ -1,1 +1,40 @@
-# Saint-valentin
+# 💘 Question pour Chloé
+
+Ce projet contient un petit site interactif avec Oui/Non, cœurs animés, et image finale.  
+
+---
+
+## HTML (`index.html`)
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💘 Question importante 💘</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="hearts"></div>
+
+<div id="question-container">
+  <h1>Chloé, veux-tu célébrer la fête de l’amour romantique avec moi ? 💖</h1>
+
+  <p id="funny-text" class="hidden">
+    😏 T’es obligée de dire oui, force pas
+  </p>
+
+  <button id="yes">Oui 💕</button>
+  <button id="no">Non 😅</button>
+</div>
+
+<div id="result" class="hidden">
+  <img src="image.jpg" alt="Image finale">
+</div>
+
+<audio id="sound" src="sound.mp3"></audio>
+<script src="script.js"></script>
+</body>
+</html>
