@@ -52,8 +52,15 @@ h1 {
 #result img {
   width: 80%;
   max-width: 350px;
-  margin-top: 20px;
-  border-radius: 20px;
+  display: block;
+  margin: 0 auto;
+}
+
+#result p {
+  text-align: center;
+  font-size: 1.5em;
+  color: #b30000;
+  margin-top: 15px;
 }
 
 /* 💖 Cœurs animés */
